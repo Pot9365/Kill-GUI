@@ -45,7 +45,9 @@ end)
 game:GetService("RunService").Heartbeat:Connect(function()
 	local playerPosition = player.Character.HumanoidRootPart.Position
 	local humanoidPosition = nil
-
+	
+	if not AlreadyDes then
+		AlreadyDes = true
 	for i, descendant in pairs(workspace:GetDescendants()) do
 		if descendant:IsA("Humanoid") and descendant.Parent:FindFirstChild("HumanoidRootPart") and OnUse == true then
 			humanoidPosition = descendant.Parent.HumanoidRootPart.Position
@@ -53,8 +55,11 @@ game:GetService("RunService").Heartbeat:Connect(function()
 			if distance <= KillRadius and descendant.Parent.Name ~= player.Name then
 				descendant.Health = 0
 			end
+			end
+			if OnUse == false then
+				break
+			end
 		end
-
 		if OnUse == false then
 			TextButton.BackgroundColor3 = Color3.fromRGB(255, 0, 4)
 			TextButton.TextColor3 = Color3.fromRGB(85, 255, 0)
@@ -64,12 +69,6 @@ game:GetService("RunService").Heartbeat:Connect(function()
 			Range.Transparency = 0.7
 			TextButton.BackgroundColor3 = Color3.fromRGB(85, 255, 0)
 			TextButton.TextColor3 = Color3.fromRGB(255, 0, 4)
-			if not AlreadyDes then
-				AlreadyDes = true
-				if OnUse == false then
-					break
-				end
-			end
 		end
 	end
 end)
